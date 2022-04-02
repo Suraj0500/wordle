@@ -1,0 +1,28 @@
+.keyboard-tile{
+    font-size: 9px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border: none;
+    height: 60px;
+    width: 45px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 530px){
+    .keyboard-tile{
+        font-size: 8px;
+        width: 8.25vw;
+    }
+}
+
+@media (max-width: 315px){
+    .keyboard-tile{
+        margin-left: 2px;
+        margin-right: 2px;
+        font-size: 7px;
+    }
+}

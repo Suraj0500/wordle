@@ -1,0 +1,23 @@
+.header-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid lightgray;
+}
+
+.hint{
+    text-align: left;
+    padding: 10px;
+}
+
+.refresh{
+    text-align: right;
+    padding: 10px;
+}
+
+.title{
+    padding: 3px 0 0;
+}
+
+.interactive-icon{
+    cursor: pointer;
+}

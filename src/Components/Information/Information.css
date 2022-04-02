@@ -1,0 +1,43 @@
+.information-container{
+    top: 0;
+    padding: 3vh 20px 0;
+    position: absolute;
+    text-align: left;
+    width: min(500px, 80vw);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.information-header{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.information-word{
+    display: flex;
+}
+
+.cross{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+@media (max-width: 515px){
+    .information-container{
+        font-size: small;
+    }
+}
+
+@media (max-width: 390px){
+    .information-container{
+        font-size: smaller;
+    }
+}
+
+@media (max-width: 375px){
+    .information-container{
+        font-size: x-small;
+    }
+}

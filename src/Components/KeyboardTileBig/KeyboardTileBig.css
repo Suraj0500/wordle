@@ -1,0 +1,30 @@
+.keyboard-tile-big{
+    font-size: 8px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-color: #d3d6da;
+    border: none;
+    height: 60px;
+    width: 65px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 530px){
+    .keyboard-tile-big{
+        font-size: 7px;
+        width: 13vw;
+    }
+}
+
+
+@media (max-width: 315px){
+    .keyboard-tile-big{
+        margin-left: 2px;
+        margin-right: 2px;
+        font-size: 6px;
+    }
+} 

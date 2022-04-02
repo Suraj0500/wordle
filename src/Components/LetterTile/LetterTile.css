@@ -1,0 +1,52 @@
+.tile{
+    border: 2px solid #d3d6da;
+    height: 57px;
+    width: 57px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform ease 0.3s;
+}
+
+.pop-tile-grow{
+    transform: scale(105%);
+    transition: transform ease 0.1s;
+}
+
+.pop-tile-reduce{
+    transform: scale(95%);
+    transition: transform ease 0.1s;
+}
+
+.border-tile{
+    border: 2px solid black;
+}
+
+.transparent-border{
+    border: 2px solid transparent;
+}
+
+.flip{
+    transform: scaleY(0);
+}
+
+
+@media (max-width: 390px){
+    .tile{
+        height: 16vw;
+        width: 16vw;
+    }
+
+    .border-tile{
+        border: 2px solid rgb(104, 100, 100);
+    }
+}
+
+@media (max-width: 320px){
+    .tile{
+        font-size: small;
+    }
+}
