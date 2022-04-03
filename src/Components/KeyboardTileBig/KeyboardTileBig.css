@@ -4,19 +4,17 @@
     margin-right: 3px;
     background-color: #d3d6da;
     border: none;
-    height: 60px;
-    width: 65px;
+    height: 55px;
+    width: min(65px,  13vw);
     display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 @media (max-width: 530px){
     .keyboard-tile-big{
         font-size: 7px;
-        width: 13vw;
     }
 }
 
@@ -28,3 +26,24 @@
         font-size: 6px;
     }
 } 
+
+@media (max-height: 640px){
+    .keyboard--big{
+        height: 7.75vh;
+        font-size: 7px;
+    }
+}
+
+@media (max-height: 560px){
+    .keyboard-tile-big{
+        height: 7vh;
+        font-size: 6px;
+    }
+}
+
+@media (max-height: 515px){
+    .keyboard-tile-big{
+        height: 6.5vh;
+        font-size: 6px;
+    }
+}

@@ -1,0 +1,34 @@
+.game-message-container{
+    background-color: #d3d6da;
+    position: absolute;
+    text-align: left;
+    width: min(500px, 80vw);
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: all ease 0.5s;
+    border-radius: 50px;
+    outline: 2px solid black;
+    outline-offset: -10px;
+    padding: 0;
+}
+    
+
+.game-message-content{
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+}
+
+.game-message-cross{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

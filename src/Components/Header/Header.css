@@ -1,23 +1,41 @@
 .header-container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid lightgray;
+    padding: 5px 10px;
 }
 
 .hint{
-    text-align: left;
-    padding: 10px;
+    padding-top: min(10px, 2vw);
 }
 
 .refresh{
-    text-align: right;
-    padding: 10px;
+    padding-top: min(10px, 2vw);
 }
 
 .title{
-    padding: 3px 0 0;
+    padding:0;
+}
+
+.title h1{
+    font-family: 'Bitter', serif;
+    font-weight: 800;
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
 .interactive-icon{
     cursor: pointer;
 }
+
+@media (max-width: 400px){
+    .title h1{
+        font-size: 1.5rem;
+    }
+}
+
+/* @media (max-width: 400px){
+    .title h1{
+        font-size: 25px;
+    }
+} */

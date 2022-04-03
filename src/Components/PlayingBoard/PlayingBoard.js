@@ -14,7 +14,7 @@ for(let i=0;i<words.length;i++){
 let randomIndex=Math.floor(Math.random()*fiveLetterWords.length);
 let answer=fiveLetterWords[randomIndex];
 let gameWon=false;
-const successCol="#538d4e", partialCol="#c9b458", failCol="#787c7e";
+const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e";
 console.log(answer);
 
 
@@ -29,6 +29,8 @@ function PlayingBoard(props){
     const [keyboardColours, setKeyboardColours] = React.useState(keyboardCol);
     const numArray=[0, 1, 2, 3, 4];
     const keyboardLayout=["QWERTYUIOP".split(''), "ASDFGHJKL".split(''), "ZXCVBNM".split('')];
+    const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
+    const [gameMessage, setGameMessage]=props.gameMessage;
 
     function performCheckWithAnswer(currWord, nextIndex){
         let temp=colours;
@@ -118,10 +120,7 @@ function PlayingBoard(props){
     
     
     function handleInput(letter){
-        if(nextIndex===6){
-            alert("Please refresh page to play again.");
-            return;
-        }
+        if(nextIndex===6) return;
         if(letter==="BACK" || letter==="BACKSPACE"){
             if(letterIndex===0) return;
             setLastAction("Back");
@@ -140,16 +139,15 @@ function PlayingBoard(props){
                 if(gameWon){
                     setNextIndex(6);
                     setTimeout(()=>{
-                        alert("Good Job, you are a pro.");
-                        alert("Polish your skills by refreshing page.");
+                        setGameMessage("Congrats, You are a Genius");
+                        setIsGameMessageVisible(true);
                     }, 2000);
                 } 
                 else{
                     if(nextIndex===5){
                         setTimeout(()=>{
-                            alert('The Answer was "' + answer + '"');
-                            alert("Nice try, better luck next time.");
-                            alert("Refresh page to try again.");
+                            setGameMessage('Nice Try, The Answer was "' + answer.toUpperCase() + '"');
+                            setIsGameMessageVisible(true);
                         }, 2000);
                     }
                     setNextIndex(nextIndex+1);
@@ -188,35 +186,35 @@ function PlayingBoard(props){
             <div className="keyboard-container">
                 <div className="keyboard-row-1">
                     {keyboardLayout[0].map(letter=>
-                        <KeyboardTile colours={keyboardColours} content={letter} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                        <KeyboardTile colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                 </div>
 
 
                 <div className="keyboard-row-2">
                     {keyboardLayout[1].map(letter=>
-                        <KeyboardTile colours={keyboardColours} content={letter} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                        <KeyboardTile colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                 </div>
                 
 
                 <div className="keyboard-row-3">
-                    <KeyboardTileBig content="ENTER" onClick={()=>{handleInput("ENTER")}}/>
+                    <KeyboardTileBig content="ENTER" gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("ENTER")}}/>
 
                     {keyboardLayout[2].map(letter=>
-                        <KeyboardTile colours={keyboardColours} content={letter} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                        <KeyboardTile colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                     
-                    <KeyboardTileBig content={<FontAwesomeIcon icon={faDeleteLeft} size="xl" />} onClick={()=>{handleInput("BACK")}}/>
+                    <KeyboardTileBig content={<FontAwesomeIcon icon={faDeleteLeft} size="xl" />} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("BACK")}}/>
                 </div>
             </div>
             {props.informationState[0]===false ? (
                 <div>
+                    <div className="for-information invisible"></div>
                     <input  unselectable="on"
                         onMouseDown={()=>{return false}}
                         role="presentation" autoComplete="off" id="mainInput" type="text" autoFocus onBlur={({target})=>{target.focus()}} onKeyDown={(e)=>{
                         handleInput(e.key.toUpperCase());
                         }} />
-                    <div className="for-information"></div>
                 </div>
-            ) : <div className="for-information fade-in"></div>}
+            ) : <div className="for-information visible"></div>}
         </div>    
     );
 }

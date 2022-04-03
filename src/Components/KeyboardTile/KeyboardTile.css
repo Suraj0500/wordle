@@ -3,26 +3,45 @@
     margin-left: 3px;
     margin-right: 3px;
     border: none;
-    height: 60px;
-    width: 45px;
+    height: 55px;
+    width: min(45px, 8.15vw);
     display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 @media (max-width: 530px){
     .keyboard-tile{
         font-size: 8px;
-        width: 8.25vw;
     }
 }
 
-@media (max-width: 315px){
+@media (max-width: 325px){
     .keyboard-tile{
         margin-left: 2px;
         margin-right: 2px;
+        font-size: 7px;
+    }
+}
+
+@media (max-height: 640px){
+    .keyboard-tile{
+        height: 7.75vh;
+        font-size: 8px;
+    }
+}
+
+@media (max-height: 560px){
+    .keyboard-tile{
+        height: 7vh;
+        font-size: 7px;
+    }
+}
+
+@media (max-height: 515px){
+    .keyboard-tile{
+        height: 6.5vh;
         font-size: 7px;
     }
 }

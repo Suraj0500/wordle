@@ -1,7 +1,7 @@
 .tile{
     border: 2px solid #d3d6da;
-    height: 57px;
-    width: 57px;
+    height: min(8vh, 16vw);
+    width: min(8vh, 16vw);
     margin-left: 2px;
     margin-right: 2px;
     padding: 0;
@@ -35,10 +35,6 @@
 
 
 @media (max-width: 390px){
-    .tile{
-        height: 16vw;
-        width: 16vw;
-    }
 
     .border-tile{
         border: 2px solid rgb(104, 100, 100);

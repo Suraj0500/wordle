@@ -1,7 +1,7 @@
 import React from "react";
 import './LetterTile.css';
 
-const successCol="#538d4e", partialCol="#c9b458", failCol="#787c7e";
+const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e";
 
 function LetterTile(props){
     React.useEffect(()=>{
