@@ -4,6 +4,8 @@ import PlayingBoard from "./Components/PlayingBoard/PlayingBoard.js";
 import Header from "./Components/Header/Header.js";
 import Information from "./Components/Information/Information.js";
 import GameOver from "./Components/GameOver/GameOver.js";
+
+
 // if(localStorage.getItem("darkMode")===null){
 //   localStorage.setItem("darkMode", false);                 FOR FUTURE DARK MODE COMPATIBILITY
 // }
@@ -11,7 +13,7 @@ import GameOver from "./Components/GameOver/GameOver.js";
 function App() {
   const [isInformationVisible, setIsInformationVisible] = React.useState(false);
   const [lastAction, setLastAction] = React.useState("");
-  const [isGameMessageVisible, setIsGameMessageVisible] = React.useState(true);
+  const [isGameMessageVisible, setIsGameMessageVisible] = React.useState(false);
   const [gameMessage, setGameMessage] = React.useState('Nice Try, The Answer was "APPLE"');
   //const [isDarkMode, setIsDarkMode] = React.useState(localStorage.getItem("darkMode"));    FOR FUTURE DARK MODE COMPATIBILITY
   return (

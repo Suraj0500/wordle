@@ -2,7 +2,7 @@
     background-color: #d3d6da;
     position: absolute;
     text-align: left;
-    width: min(500px, 80vw);
+    width: min(450px, 80vw);
     height: 200px;
     top: 50%;
     left: 50%;
@@ -17,7 +17,8 @@
     
 
 .game-message-content{
-    width: 80%;
+    text-align: center;
+    width: 90%;
     position: absolute;
     top: 50%;
     left: 50%;

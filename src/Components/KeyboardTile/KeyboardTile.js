@@ -10,6 +10,7 @@ function KeyboardTile(props){
     if(props.currAction==="Enter"){
         setTimeout(()=>{
         if(props.colours[ind]===successCol || props.colours[ind]===failCol || props.colours[ind]===partialCol) setTextCol("white");
+        else setTextCol("black");
         setCurrColour(props.colours[ind]);
     }, 1600);
     }

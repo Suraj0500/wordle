@@ -13,16 +13,16 @@
 
 .pop-tile-grow{
     transform: scale(105%);
-    transition: transform ease 0.1s;
+    transition: transform ease 0.05s;
 }
 
 .pop-tile-reduce{
     transform: scale(95%);
-    transition: transform ease 0.1s;
+    transition: transform ease 0.05s;
 }
 
 .border-tile{
-    border: 2px solid black;
+    border: 2px solid black !important;
 }
 
 .transparent-border{
@@ -33,6 +33,45 @@
     transform: scaleY(0);
 }
 
+.left-1{
+    transform: translateX(-1px);
+    transition: transform ease 0.05s;
+}
+
+.right-1{
+    transform: translateX(1px);
+    transition: transform ease 0.05s;
+}
+
+.left-3{
+    transform: translateX(-3px);
+    transition: transform ease 0.05s;
+}
+
+.right-3{
+    transform: translateX(3px);
+    transition: transform ease 0.05s;
+}
+
+.left-5{
+    transform: translateX(-5px);
+    transition: transform ease 0.05s;
+}
+
+.right-5{
+    transform: translateX(5px);
+    transition: transform ease 0.05s;
+}
+
+.up{
+    transform: translateY(max(-6vh, -16vw));
+    transition: transform ease 0.2s;
+}
+
+.down{
+    transform: translateY(10px);
+    transition: transform ease 0.2s;
+}
 
 @media (max-width: 390px){
 
@@ -41,7 +80,13 @@
     }
 }
 
-@media (max-width: 320px){
+@media (max-width: 420px){
+    .tile{
+        font-size: small;
+    }
+}
+
+@media (max-height: 550px){
     .tile{
         font-size: small;
     }

@@ -4,7 +4,6 @@ import { faQuestionCircle, faArrowsRotate, faMoon } from "@fortawesome/free-soli
 import "./Header.css"
 
 function Header(props){
-    console.log(Math.min(window.innerHeight, window.innerWidth));
     return(
         <div className="header-container">
             <div className="hint">

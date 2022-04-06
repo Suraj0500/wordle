@@ -3,16 +3,14 @@ import "./PlayingBoard.css";
 import LetterTile from "../LetterTile/LetterTile.js";
 import KeyboardTile from "../KeyboardTile/KeyboardTile.js";
 import KeyboardTileBig from "../KeyboardTileBig/KeyboardTileBig.js";
+import InvalidWord from "../InvalidWord/InvalidWord.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
-import words from "an-array-of-english-words";
+import dictionary from "../../dictionary.json";
+import targetWords from "../../targetWords.json";
 
-let fiveLetterWords=[];
-for(let i=0;i<words.length;i++){
-    if(words[i].length===5) fiveLetterWords.push(words[i]);
-}
-let randomIndex=Math.floor(Math.random()*fiveLetterWords.length);
-let answer=fiveLetterWords[randomIndex];
+const randomIndex=Math.floor(Math.random()*targetWords.length);
+const answer=targetWords[randomIndex];
 let gameWon=false;
 const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e";
 console.log(answer);
@@ -24,6 +22,7 @@ function PlayingBoard(props){
     const [colours, setColours] = React.useState(Array.from(Array(6), () => new Array(5)));
     const [nextIndex, setNextIndex] = React.useState(0);
     const [letterIndex, setLetterIndex] = React.useState(0);
+    const [isInvalidMessageVisible, setIsInvalidMessageVisible] = React.useState(false);
     const [lastAction, setLastAction] = props.lastAction;
     let keyboardCol=Array.from(Array(26), () => "#d3d6da");
     const [keyboardColours, setKeyboardColours] = React.useState(keyboardCol);
@@ -31,6 +30,7 @@ function PlayingBoard(props){
     const keyboardLayout=["QWERTYUIOP".split(''), "ASDFGHJKL".split(''), "ZXCVBNM".split('')];
     const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
     const [gameMessage, setGameMessage]=props.gameMessage;
+    
 
     function performCheckWithAnswer(currWord, nextIndex){
         let temp=colours;
@@ -110,8 +110,8 @@ function PlayingBoard(props){
     
     
     function checkValidity(currWord){
-        for(let i=0;i<fiveLetterWords.length;i++){
-            if(currWord===fiveLetterWords[i]) return true;
+        for(let i=0;i<dictionary.length;i++){
+            if(currWord===dictionary[i]) return true;
         }
         return false;
     }
@@ -137,16 +137,62 @@ function PlayingBoard(props){
             if(isValid){
                 gameWon=performCheckWithAnswer(currWord, nextIndex);
                 if(gameWon){
+                    let winningIndex=nextIndex;
+                    let timeForWinAnimation=150;
                     setNextIndex(6);
                     setTimeout(()=>{
-                        setGameMessage("Congrats, You are a Genius");
+                        setTimeout(()=>{
+                            document.getElementById(winningIndex*5).classList.add("up");
+                            setTimeout(()=>{
+                                document.getElementById(winningIndex*5).classList.remove("up");
+                                document.getElementById(winningIndex*5).classList.add("down");
+                                document.getElementById(winningIndex*5+1).classList.add("up");
+                                setTimeout(()=>{
+                                    document.getElementById(winningIndex*5+1).classList.remove("up");
+                                    document.getElementById(winningIndex*5+1).classList.add("down");
+                                    document.getElementById(winningIndex*5).classList.remove("down");
+                                    document.getElementById(winningIndex*5+2).classList.add("up");
+                                    setTimeout(()=>{
+                                        document.getElementById(winningIndex*5+2).classList.remove("up");
+                                        document.getElementById(winningIndex*5+2).classList.add("down");
+                                        document.getElementById(winningIndex*5+1).classList.remove("down");
+                                        document.getElementById(winningIndex*5+3).classList.add("up");
+                                        setTimeout(()=>{
+                                            document.getElementById(winningIndex*5+3).classList.remove("up");
+                                            document.getElementById(winningIndex*5+3).classList.add("down");
+                                            document.getElementById(winningIndex*5+2).classList.remove("down");
+                                            document.getElementById(winningIndex*5+4).classList.add("up");
+                                            setTimeout(()=>{
+                                                document.getElementById(winningIndex*5+4).classList.remove("up");
+                                                document.getElementById(winningIndex*5+4).classList.add("down");
+                                                document.getElementById(winningIndex*5+3).classList.remove("down");
+                                                setTimeout(()=>{
+                                                    document.getElementById(winningIndex*5+4).classList.remove("down");
+                                                }, timeForWinAnimation);
+                                            }, timeForWinAnimation);
+                                        }, timeForWinAnimation);
+                                    }, timeForWinAnimation);
+                                }, timeForWinAnimation);
+                            }, timeForWinAnimation);
+                        }, timeForWinAnimation);
+                    }, 1600);
+                    
+                    setTimeout(()=>{
+                        if(winningIndex===0) setGameMessage("I bet that will never happen again.");
+                        else if(winningIndex===1) setGameMessage("Pro in the house.");
+                        else if(winningIndex===2) setGameMessage("Looks like half the grid is all you need.");
+                        else if(winningIndex===3) setGameMessage("I guess its too easy for you.");
+                        else if(winningIndex===4) setGameMessage("And that's how it gets done.");
+                        else setGameMessage("Phew, barely made it.");
+                        
                         setIsGameMessageVisible(true);
-                    }, 2000);
+                    }, 2900);
+                    
                 } 
                 else{
                     if(nextIndex===5){
                         setTimeout(()=>{
-                            setGameMessage('Nice Try, The Answer was "' + answer.toUpperCase() + '"');
+                            setGameMessage('Nice try, the answer was "' + answer.toUpperCase() + '"');
                             setIsGameMessageVisible(true);
                         }, 2000);
                     }
@@ -160,7 +206,82 @@ function PlayingBoard(props){
                 setLetterIndex(0);
             }
             else{
-                alert("Word Not in Dictionary, Please Enter Valid Word.");
+                let timeForShake=50;
+                document.getElementById("mainInput").type="hidden";
+                setTimeout(()=>{
+                    document.getElementById("mainInput").type="text";
+                    document.getElementById("mainInput").focus();
+                }, 11*timeForShake);
+
+
+                setIsInvalidMessageVisible(true);
+                setTimeout(()=>{
+                    setIsInvalidMessageVisible(false);
+                }, 20*timeForShake);
+
+
+                for(let i=0;i<5;i++){
+                    document.getElementById(nextIndex*5 + i).classList.add("left-1");
+                }
+                setTimeout(()=>{
+                    for(let i=0;i<5;i++){
+                        document.getElementById(nextIndex*5 + i).classList.remove("left-1");
+                        document.getElementById(nextIndex*5 + i).classList.add("right-1");
+                    }
+                    setTimeout(()=>{
+                        for(let i=0;i<5;i++){
+                            document.getElementById(nextIndex*5 + i).classList.remove("right-1");
+                            document.getElementById(nextIndex*5 + i).classList.add("left-3");
+                        }
+                        setTimeout(()=>{
+                            for(let i=0;i<5;i++){
+                                document.getElementById(nextIndex*5 + i).classList.remove("left-3");
+                                document.getElementById(nextIndex*5 + i).classList.add("right-3");
+                            }
+                            setTimeout(()=>{
+                                for(let i=0;i<5;i++){
+                                    document.getElementById(nextIndex*5 + i).classList.remove("right-3");
+                                    document.getElementById(nextIndex*5 + i).classList.add("left-5");
+                                }
+                                setTimeout(()=>{
+                                    for(let i=0;i<5;i++){
+                                        document.getElementById(nextIndex*5 + i).classList.remove("left-5");
+                                        document.getElementById(nextIndex*5 + i).classList.add("right-5");
+                                    }
+                                    setTimeout(()=>{
+                                        for(let i=0;i<5;i++){
+                                            document.getElementById(nextIndex*5 + i).classList.remove("right-5");
+                                            document.getElementById(nextIndex*5 + i).classList.add("left-3");
+                                        }
+                                        setTimeout(()=>{
+                                            for(let i=0;i<5;i++){
+                                                document.getElementById(nextIndex*5 + i).classList.remove("left-3");
+                                                document.getElementById(nextIndex*5 + i).classList.add("right-3");
+                                            }
+                                            setTimeout(()=>{
+                                                for(let i=0;i<5;i++){
+                                                    document.getElementById(nextIndex*5 + i).classList.remove("right-3");
+                                                    document.getElementById(nextIndex*5 + i).classList.add("left-1");
+                                                }
+                                                setTimeout(()=>{
+                                                    for(let i=0;i<5;i++){
+                                                        document.getElementById(nextIndex*5 + i).classList.remove("left-1");
+                                                        document.getElementById(nextIndex*5 + i).classList.add("right-1");
+                                                    }
+                                                    setTimeout(()=>{
+                                                        for(let i=0;i<5;i++){
+                                                            document.getElementById(nextIndex*5 + i).classList.remove("right-1");
+                                                        }
+                                                    }, timeForShake);
+                                                }, timeForShake);
+                                            }, timeForShake);
+                                        }, timeForShake);
+                                    }, timeForShake);
+                                }, timeForShake);
+                            }, timeForShake);
+                        }, timeForShake);
+                    }, timeForShake);
+                }, timeForShake);
             }
         }
         else if(letter.length===1 && letter>='A' && letter<='Z'){
@@ -176,6 +297,7 @@ function PlayingBoard(props){
 
     return(
         <div>
+            <InvalidWord className={isInvalidMessageVisible ? "visible" : "invisible"} />
             <div className="playing-board-container">
                 {[...numArray, 5].map(firstIndex=>
                     [...numArray].map(secondIndex=>
