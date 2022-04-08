@@ -199,20 +199,25 @@ function PlayingBoard(props){
                     }
                     setNextIndex(nextIndex+1);
                 } 
-                document.getElementById("mainInput").type="hidden";
-                setTimeout(()=>{
-                    document.getElementById("mainInput").type="text";
-                    document.getElementById("mainInput").focus();
-                }, 1600);
+                if(window.innerWidth>1024){
+                    document.getElementById("mainInput").type="hidden";
+                    setTimeout(()=>{
+                        document.getElementById("mainInput").type="text";
+                        document.getElementById("mainInput").focus();
+                    }, 1600);
+                }
+                
                 setLetterIndex(0);
             }
             else{
                 let timeForShake=50;
-                document.getElementById("mainInput").type="hidden";
-                setTimeout(()=>{
-                    document.getElementById("mainInput").type="text";
-                    document.getElementById("mainInput").focus();
-                }, 11*timeForShake);
+                if(window.innerWidth>1024){
+                    document.getElementById("mainInput").type="hidden";
+                    setTimeout(()=>{
+                        document.getElementById("mainInput").type="text";
+                        document.getElementById("mainInput").focus();
+                    }, 11*timeForShake);
+                }
 
 
                 setIsInvalidMessageVisible(true);
