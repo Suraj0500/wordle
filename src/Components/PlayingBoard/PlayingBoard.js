@@ -13,7 +13,6 @@ const randomIndex=Math.floor(Math.random()*targetWords.length);
 const answer=targetWords[randomIndex];
 let gameWon=false;
 const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e";
-console.log(answer);
 
 function PlayingBoard(props){
     const [letters, setLetters] = React.useState(Array.from(Array(6), () => new Array(5)));
