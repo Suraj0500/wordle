@@ -15,8 +15,6 @@ let gameWon=false;
 const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e";
 console.log(answer);
 
-
-
 function PlayingBoard(props){
     const [letters, setLetters] = React.useState(Array.from(Array(6), () => new Array(5)));
     const [colours, setColours] = React.useState(Array.from(Array(6), () => new Array(5)));
@@ -30,6 +28,10 @@ function PlayingBoard(props){
     const keyboardLayout=["QWERTYUIOP".split(''), "ASDFGHJKL".split(''), "ZXCVBNM".split('')];
     const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
     const [gameMessage, setGameMessage]=props.gameMessage;
+
+    setTimeout(()=>{
+        document.getElementsByClassName("for-information")[0].style.zIndex=1;
+    }, 350);
     
 
     function performCheckWithAnswer(currWord, nextIndex){

@@ -4,9 +4,14 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import "./GameOver.css";
 
 function GameOver(props){
+    setTimeout(()=>{
+        document.getElementById("game-message").style.zIndex=2;
+    }, 450);
+
+
     const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
     return (
-        <div className={isGameMessageVisible ? "game-message-container visible" : "game-message-container invisible"}>
+        <div id="game-message" className={"game-message-container " + (isGameMessageVisible ? "visible" : "invisible")}>
             <FontAwesomeIcon icon={faCircleXmark} size="2x" className="game-message-cross" onClick={()=>{
                                                                             setIsGameMessageVisible(false);
                                                                             props.lastAction[1]("");}} />

@@ -7,8 +7,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-    transition: all ease 0.5s;
+    z-index: -1;
+    transition: opacity ease 0.5s, transform ease 0.5s, visibility ease 0.5s;
     border-radius: 50px;
     outline: 2px solid black;
     outline-offset: -10px;

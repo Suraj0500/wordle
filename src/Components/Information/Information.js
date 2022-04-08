@@ -7,8 +7,13 @@ import "./Information.css";
 const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e", defaultCol="white";
 
 function Information(props){
+    setTimeout(()=>{
+        document.getElementById("information-message").style.zIndex=2;
+    }, 450);
+
+    
     return(
-        <div className={props.informationState[0] ? "information-container visible" : "information-container invisible"}>
+        <div id="information-message" className={props.informationState[0] ? "information-container visible" : "information-container invisible"}>
             <div className="information-header">
                 <h1>HOW TO PLAY</h1>
                 <FontAwesomeIcon icon={faXmark} size="2x" className="cross" onClick={()=>{

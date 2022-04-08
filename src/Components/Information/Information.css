@@ -6,8 +6,8 @@
     width: min(500px, 80vw);
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
-    transition: all ease 0.5s;
+    z-index: -1;
+    transition: opacity ease 0.5s, transform ease 0.5s, visibility ease 0.5s;
 }
 
 .visible{
