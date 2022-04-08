@@ -331,11 +331,11 @@ function PlayingBoard(props){
             {props.informationState[0]===false ? (
                 <div>
                     <div className="for-information invisible"></div>
-                    <input  unselectable="on"
+                    {window.innerWidth>1024 ? <input unselectable="on"
                         onMouseDown={()=>{return false}}
                         role="presentation" autoComplete="off" id="mainInput" type="text" autoFocus onBlur={({target})=>{target.focus()}} onKeyDown={(e)=>{
                         handleInput(e.key.toUpperCase());
-                        }} />
+                        }} /> : <div></div>}
                 </div>
             ) : <div className="for-information visible"></div>}
         </div>    
