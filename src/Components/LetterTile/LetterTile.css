@@ -8,25 +8,25 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    transition: transform ease 0.3s;
-    -webkit-transition: transform ease 0.3s;
-    -webkit-transition: -webkit-transform ease 0.3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: -webkit-transform ease 0.3s, transform ease 0.3s;
+    transition: -webkit-transform ease 0.3s, transform ease 0.3s;
+    
 }
 
 .pop-tile-grow{
-    transform: scale(105%);
     -webkit-transform: scale(105%);
-    transition: transform ease 0.05s;
-    -webkit-transition: transform ease 0.05s;
-    -webkit-transition: -webkit-transform ease 0.05s;
+    transform: scale(105%);
+    -webkit-transition: -webkit-transform ease 0.05s, transform ease 0.05s;
+    transition: -webkit-transform ease 0.05s, transform ease 0.05s;
 }
 
 .pop-tile-reduce{
-    transform: scale(95%);
     -webkit-transform: scale(95%);
-    transition: transform ease 0.05s;
-    -webkit-transition: transform ease 0.05s;
-    -webkit-transition: -webkit-transform ease 0.05s;
+    transform: scale(95%);
+    -webkit-transition: -webkit-transform ease 0.05s, transform ease 0.05s;
+    transition: -webkit-transform ease 0.05s, transform ease 0.05s;
 }
 
 .border-tile{
