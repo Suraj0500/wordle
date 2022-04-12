@@ -1,5 +1,4 @@
 .game-message-container{
-    background-color: #d3d6da;
     position: absolute;
     text-align: left;
     width: min(450px, 80vw);
@@ -10,9 +9,26 @@
     z-index: -1;
     transition: opacity ease 0.5s, transform ease 0.5s, visibility ease 0.5s;
     border-radius: 50px;
-    outline: 2px solid black;
     outline-offset: -10px;
     padding: 0;
+}
+
+.dark-game{
+    background-color: #818384;
+    outline: 2px solid white;
+}
+
+.light-game{
+    background-color: #d3d6da;
+    outline: 2px solid black;
+}
+
+.dark-cross{
+    color: white;
+}
+
+.light-cross{
+    color: black;
 }
     
 

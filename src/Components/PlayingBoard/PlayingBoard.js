@@ -12,7 +12,9 @@ import targetWords from "../../targetWords.json";
 const randomIndex=Math.floor(Math.random()*targetWords.length);
 const answer=targetWords[randomIndex];
 let gameWon=false;
-const successCol="#4fa847", partialCol="#d2cd28", failCol="#787c7e";
+const successColLight="#4fa847", partialColLight="#d2cd28", failColLight="#787c7e";
+const successColDark="#538d4e", partialColDark="#b59f3b", failColDark="#3a3a3c";
+const keyboardBGDark="#818384", keyboardBGLight="#d3d6da";
 
 function PlayingBoard(props){
     const [letters, setLetters] = React.useState(Array.from(Array(6), () => new Array(5)));
@@ -28,6 +30,36 @@ function PlayingBoard(props){
     const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
     const [gameMessage, setGameMessage]=props.gameMessage;
 
+    let tempCols=colours;
+    for(let i=0;i<6;i++){
+        for(let j=0;j<5;j++){
+            if(props.darkModeState && tempCols[i][j]===successColLight) tempCols[i][j]=successColDark;
+            if(props.darkModeState && tempCols[i][j]===partialColLight) tempCols[i][j]=partialColDark;
+            if(props.darkModeState && tempCols[i][j]===failColLight) tempCols[i][j]=failColDark;
+            if(!props.darkModeState && tempCols[i][j]===successColDark) tempCols[i][j]=successColLight;
+            if(!props.darkModeState && tempCols[i][j]===partialColDark) tempCols[i][j]=partialColLight;
+            if(!props.darkModeState && tempCols[i][j]===failColDark) tempCols[i][j]=failColLight;
+        }
+    }
+    if(tempCols!==colours){
+        setColours(tempCols);
+    }
+
+    let tempKeyboardCols=keyboardColours;
+    for(let i=0;i<26;i++){
+        if(props.darkModeState && tempKeyboardCols[i]===successColLight) tempKeyboardCols[i]=successColDark;
+        if(props.darkModeState && tempKeyboardCols[i]===partialColLight) tempKeyboardCols[i]=partialColDark;
+        if(props.darkModeState && tempKeyboardCols[i]===failColLight) tempKeyboardCols[i]=failColDark;
+        if(!props.darkModeState && tempKeyboardCols[i]===successColDark) tempKeyboardCols[i]=successColLight;
+        if(!props.darkModeState && tempKeyboardCols[i]===partialColDark) tempKeyboardCols[i]=partialColLight;
+        if(!props.darkModeState && tempKeyboardCols[i]===failColDark) tempKeyboardCols[i]=failColLight;
+        if(props.darkModeState && tempKeyboardCols[i]===keyboardBGLight) tempKeyboardCols[i]=keyboardBGDark;
+        if(!props.darkModeState && tempKeyboardCols[i]===keyboardBGDark) tempKeyboardCols[i]=keyboardBGLight;
+    }
+    if(tempKeyboardCols!==keyboardColours){
+        setKeyboardColours(tempKeyboardCols);
+    }
+
     setTimeout(()=>{
         document.getElementsByClassName("for-information")[0].style.zIndex=1;
     }, 350);
@@ -41,65 +73,55 @@ function PlayingBoard(props){
         for(let i=0;i<5;i++){
             let ind=currWord.toUpperCase().charCodeAt(i)-65;
             if(currWord[i]===answer[i]){
-                temp[nextIndex][i]=successCol;
+                temp[nextIndex][i]=props.darkModeState ? successColDark : successColLight;
                 usedAns[i]=true;
                 usedCurr[i]=true;
-                tempKeyboardColours[ind]=successCol;
+                tempKeyboardColours[ind]=props.darkModeState ? successColDark : successColLight;
             }
         }
         for(let i=0;i<5;i++){
             let ind=currWord.toUpperCase().charCodeAt(i)-65;
             for(let j=0;j<5;j++){
                 if(currWord[i]===answer[j] && !usedCurr[i] && !usedAns[j]){
-                    temp[nextIndex][i]=partialCol;
+                    temp[nextIndex][i]=props.darkModeState ? partialColDark : partialColLight;
                     usedCurr[i]=true;
                     usedAns[j]=true;
-                    if(tempKeyboardColours[ind]===successCol) continue;
-                    else tempKeyboardColours[ind]=partialCol;
+                    if(tempKeyboardColours[ind]===successColDark || tempKeyboardColours[ind]===successColLight) continue;
+                    else tempKeyboardColours[ind]=props.darkModeState ? partialColDark : partialColLight;
                 }
             }
         }
         for(let i=0;i<5;i++){
             let ind=currWord.toUpperCase().charCodeAt(i)-65;
             if(!usedCurr[i]){
-                temp[nextIndex][i]=failCol;
-                if(tempKeyboardColours[ind]===successCol || tempKeyboardColours[ind]===partialCol) continue;
-                else tempKeyboardColours[ind]=failCol;
+                temp[nextIndex][i]=props.darkModeState ? failColDark : failColLight;
+                if(tempKeyboardColours[ind]===successColLight || tempKeyboardColours[ind]===successColDark || tempKeyboardColours[ind]===partialColLight || tempKeyboardColours[ind]===partialColDark) continue;
+                else tempKeyboardColours[ind]=props.darkModeState ? failColDark : failColLight;
             }
         }
         setColours(temp);
         setKeyboardColours(tempKeyboardColours);
         let count=0;
         for(let i=0;i<5;i++){
-            if(colours[nextIndex][i]===successCol) count++;
+            if(colours[nextIndex][i]===successColLight || colours[nextIndex][i]===successColDark) count++;
         }
         let base=nextIndex*5;
         let timeForNext=300;
         document.getElementById(base).classList.add("flip");
         setTimeout(()=>{
             document.getElementById(base).classList.remove("flip");
-            document.getElementById(base).classList.remove("border-tile");
-            document.getElementById(base).classList.add("transparent-border");
             document.getElementById(base+1).classList.add("flip");
             setTimeout(()=>{
                 document.getElementById(base+1).classList.remove("flip");
-                document.getElementById(base+1).classList.remove("border-tile");
-                document.getElementById(base+1).classList.add("transparent-border");
                 document.getElementById(base+2).classList.add("flip");
                 setTimeout(()=>{
                     document.getElementById(base+2).classList.remove("flip");
-                    document.getElementById(base+2).classList.remove("border-tile");
-                    document.getElementById(base+2).classList.add("transparent-border");
                     document.getElementById(base+3).classList.add("flip");
                     setTimeout(()=>{
                         document.getElementById(base+3).classList.remove("flip");
-                        document.getElementById(base+3).classList.remove("border-tile");
-                        document.getElementById(base+3).classList.add("transparent-border");
                         document.getElementById(base+4).classList.add("flip");
                         setTimeout(()=>{
                             document.getElementById(base+4).classList.remove("flip");
-                            document.getElementById(base+4).classList.remove("border-tile");
-                            document.getElementById(base+4).classList.add("transparent-border");
                         }, timeForNext);
                     }, timeForNext);
                 }, timeForNext);
@@ -133,6 +155,10 @@ function PlayingBoard(props){
         else if(letter==="ENTER"){
             if(letterIndex!==5) return;
             setLastAction("Enter");
+            props.buttonState[1](false);
+            setTimeout(()=>{
+                props.buttonState[1](true);
+            }, 1600);
             const currWord=letters[nextIndex].join("").toLowerCase();
             const isValid=checkValidity(currWord);
             if(isValid){
@@ -141,6 +167,7 @@ function PlayingBoard(props){
                     let winningIndex=nextIndex;
                     let timeForWinAnimation=150;
                     setNextIndex(6);
+                    setLetterIndex(1);
                     setTimeout(()=>{
                         setTimeout(()=>{
                             document.getElementById(winningIndex*5).classList.add("up");
@@ -297,52 +324,62 @@ function PlayingBoard(props){
             tempLetters[nextIndex][letterIndex]=letter;
             setLetters(tempLetters);
             setLetterIndex(letterIndex+1);
+        }    
+    }
+
+    for(let i=nextIndex*5;i<nextIndex*5 + letterIndex;i++){
+        if(props.darkModeState){
+            document.getElementById(i).classList.remove("border-tile-light");
+            document.getElementById(i).classList.add("border-tile-dark");
         }
-        
+        else{
+            document.getElementById(i).classList.remove("border-tile-dark");
+            document.getElementById(i).classList.add("border-tile-light");
+        }
     }
 
     return(
         <div>
-            <InvalidWord className={isInvalidMessageVisible ? "visible" : "invisible"} />
-            <div className="playing-board-container">
+            <InvalidWord className={isInvalidMessageVisible ? "visible" : "invisible"} darkModeState={props.darkModeState}/>
+            <div className={"playing-board-container " + (props.darkModeState ? "dark" : "light")}>
                 {[...numArray, 5].map(firstIndex=>
                     [...numArray].map(secondIndex=>
-                        <LetterTile currAction={lastAction} workingIndex={nextIndex*5 + letterIndex}id={(firstIndex*5) + secondIndex} content={letters[firstIndex][secondIndex]} colour={colours[firstIndex][secondIndex]} informationState={props.informationState} />))} 
+                        <LetterTile darkModeState={props.darkModeState} currAction={lastAction} workingIndex={nextIndex*5 + letterIndex} id={(firstIndex*5) + secondIndex} content={letters[firstIndex][secondIndex]} colour={colours[firstIndex][secondIndex]} informationState={props.informationState} />))} 
 
             </div>
 
             <div className="keyboard-container">
                 <div className="keyboard-row-1">
                     {keyboardLayout[0].map(letter=>
-                        <KeyboardTile colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                        <KeyboardTile darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                 </div>
 
 
                 <div className="keyboard-row-2">
                     {keyboardLayout[1].map(letter=>
-                        <KeyboardTile colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                        <KeyboardTile darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                 </div>
                 
 
                 <div className="keyboard-row-3">
-                    <KeyboardTileBig content="ENTER" gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("ENTER")}}/>
+                    <KeyboardTileBig darkModeState={props.darkModeState} content="ENTER" gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("ENTER")}}/>
 
                     {keyboardLayout[2].map(letter=>
-                        <KeyboardTile colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                        <KeyboardTile darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                     
-                    <KeyboardTileBig content={<FontAwesomeIcon icon={faDeleteLeft} size="xl" />} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("BACK")}}/>
+                    <KeyboardTileBig darkModeState={props.darkModeState} content={<FontAwesomeIcon icon={faDeleteLeft} size="xl" />} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("BACK")}}/>
                 </div>
             </div>
             {props.informationState[0]===false ? (
                 <div>
-                    <div className="for-information invisible"></div>
+                    <div className={"for-information invisible " + (props.darkModeState ? "dark" : "light")}></div>
                     {window.innerWidth>1024 ? <input unselectable="on"
                         onMouseDown={()=>{return false}}
                         role="presentation" autoComplete="off" id="mainInput" type="text" autoFocus onBlur={({target})=>{target.focus()}} onKeyDown={(e)=>{
                         handleInput(e.key.toUpperCase());
                         }} /> : <div></div>}
                 </div>
-            ) : <div className="for-information visible"></div>}
+            ) : <div className={"for-information visible " + (props.darkModeState ? "dark" : "light")}></div>}
         </div>    
     );
 }

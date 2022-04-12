@@ -11,11 +11,11 @@ function GameOver(props){
 
     const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
     return (
-        <div id="game-message" className={"game-message-container " + (isGameMessageVisible ? "visible" : "invisible")}>
-            <FontAwesomeIcon icon={faCircleXmark} size="2x" className="game-message-cross" onClick={()=>{
+        <div id="game-message" className={"game-message-container " + (isGameMessageVisible ? "visible" : "invisible") + (props.darkModeState ? " dark-game" : " light-game")}>
+            <FontAwesomeIcon icon={faCircleXmark} size="2x" className={"game-message-cross " + (props.darkModeState ? "dark-cross" : "light-cross")} onClick={()=>{
                                                                             setIsGameMessageVisible(false);
                                                                             props.lastAction[1]("");}} />
-            <h2 className="game-message-content">{props.gameMessage[0]}</h2>
+            <h2 className="game-message-content" style={{color: props.darkModeState ? "white" : "black"}}>{props.gameMessage[0]}</h2>
         </div>
     );
 }

@@ -4,24 +4,25 @@ import PlayingBoard from "./Components/PlayingBoard/PlayingBoard.js";
 import Header from "./Components/Header/Header.js";
 import Information from "./Components/Information/Information.js";
 import GameOver from "./Components/GameOver/GameOver.js";
-
-
-// if(localStorage.getItem("darkMode")===null){
-//   localStorage.setItem("darkMode", false);                 FOR FUTURE DARK MODE COMPATIBILITY
-// }
+let storedInformationMode=localStorage.getItem("firstVisit");
 
 function App() {
-  const [isInformationVisible, setIsInformationVisible] = React.useState(false);
+  let storedDarkMode=localStorage.getItem("darkMode");
+  const [isDarkMode, setIsDarkMode] = React.useState(storedDarkMode==="true" ? true : false);
+  React.useEffect(()=>{
+      localStorage.setItem("darkMode", isDarkMode);
+  });
+  const [isInformationVisible, setIsInformationVisible] = React.useState(storedInformationMode===null ? true : false);
   const [lastAction, setLastAction] = React.useState("");
   const [isGameMessageVisible, setIsGameMessageVisible] = React.useState(false);
-  const [gameMessage, setGameMessage] = React.useState('Nice Try, The Answer was "APPLE"');
-  //const [isDarkMode, setIsDarkMode] = React.useState(localStorage.getItem("darkMode"));    FOR FUTURE DARK MODE COMPATIBILITY
+  const [gameMessage, setGameMessage] = React.useState("");
+  const [buttonActive, setButtonActive] = React.useState(true);
   return (
-    <div className={"App" + (isInformationVisible ? "" : " overflow-hidden")}>
-      <Header gameMessageState={isGameMessageVisible} informationState={[isInformationVisible, setIsInformationVisible]}/>
-      <Information informationState={[isInformationVisible, setIsInformationVisible]} lastAction={[lastAction, setLastAction]}/>
-      <PlayingBoard gameMessage={[gameMessage, setGameMessage]} gameMessageState={[isGameMessageVisible, setIsGameMessageVisible]} informationState={[isInformationVisible, setIsInformationVisible]} lastAction={[lastAction, setLastAction]} />
-      <GameOver gameMessage={[gameMessage, setGameMessage]} gameMessageState={[isGameMessageVisible, setIsGameMessageVisible]} lastAction={[lastAction, setLastAction]} />
+    <div className={"App" + (isInformationVisible ? "" : " overflow-hidden") + (isDarkMode ? " dark" : " light")}>
+      <Header buttonState={buttonActive} darkModeState={[isDarkMode, setIsDarkMode]} gameMessageState={isGameMessageVisible} informationState={[isInformationVisible, setIsInformationVisible]} lastAction={[lastAction, setLastAction]}/>
+      <Information darkModeState={isDarkMode} informationState={[isInformationVisible, setIsInformationVisible]} lastAction={[lastAction, setLastAction]}/>
+      <PlayingBoard buttonState={[buttonActive, setButtonActive]} darkModeState={isDarkMode} gameMessage={[gameMessage, setGameMessage]} gameMessageState={[isGameMessageVisible, setIsGameMessageVisible]} informationState={[isInformationVisible, setIsInformationVisible]} lastAction={[lastAction, setLastAction]} />
+      <GameOver darkModeState={isDarkMode} gameMessage={[gameMessage, setGameMessage]} gameMessageState={[isGameMessageVisible, setIsGameMessageVisible]} lastAction={[lastAction, setLastAction]} />
     </div>
   );
 }

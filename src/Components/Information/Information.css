@@ -1,13 +1,19 @@
 .information-container{
     top: 0;
     padding: 3vh 20px 0;
+    background-color: transparent;
     position: absolute;
     text-align: left;
     width: min(500px, 80vw);
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;
-    transition: opacity ease 0.5s, transform ease 0.5s, visibility ease 0.5s;
+    transition: opacity ease 0.5s, transform ease 0.5s, visibility ease 0.5s, background-color ease 0.5s;
+}
+
+.bottom-of-content{
+    border-bottom: 2px solid lightgray;
+    padding-bottom: 10px;
 }
 
 .visible{

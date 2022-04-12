@@ -36,6 +36,7 @@ input::selection{
 .for-information{
     top: 0;
     position: fixed;
+    background-color: transparent;
     width: 100%;
     height: 100%;
     z-index: -1;
@@ -43,15 +44,23 @@ input::selection{
 }
 
 .visible{
-    background-color: white;
     opacity: 1;
     visibility: visible;
 }
 
 .invisible{
-    background-color: white;
     opacity: 0;
     visibility: hidden;
+}
+
+.dark{
+    background-color: #121213;
+    color: white;
+}
+
+.light{
+    background-color: white;
+    color: black;
 }
 
 

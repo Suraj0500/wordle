@@ -1,5 +1,4 @@
 .tile{
-    border: 2px solid #d3d6da;
     height: min(8vh, 16vw);
     width: min(8vh, 16vw);
     margin-left: 2px;
@@ -29,8 +28,20 @@
     transition: -webkit-transform ease 0.05s, transform ease 0.05s;
 }
 
-.border-tile{
-    border: 2px solid black !important;
+.border-tile-pre-light{
+    border: 2px solid #d3d6da;
+}
+
+.border-tile-pre-dark{
+    border: 2px solid #3a3a3c;
+}
+
+.border-tile-light{
+    border: 2px solid black;
+}
+
+.border-tile-dark{
+    border: 2px solid rgb(180, 178, 178);
 }
 
 .transparent-border{
