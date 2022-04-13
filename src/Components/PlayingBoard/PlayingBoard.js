@@ -28,7 +28,7 @@ function PlayingBoard(props){
     const numArray=[0, 1, 2, 3, 4];
     const keyboardLayout=["QWERTYUIOP".split(''), "ASDFGHJKL".split(''), "ZXCVBNM".split('')];
     const [isGameMessageVisible, setIsGameMessageVisible] = props.gameMessageState;
-    const [gameMessage, setGameMessage]=props.gameMessage;
+    const setGameMessage=props.gameMessage[1];
 
     let tempCols=colours;
     for(let i=0;i<6;i++){
@@ -167,7 +167,6 @@ function PlayingBoard(props){
                     let winningIndex=nextIndex;
                     let timeForWinAnimation=150;
                     setNextIndex(6);
-                    setLetterIndex(1);
                     setTimeout(()=>{
                         setTimeout(()=>{
                             document.getElementById(winningIndex*5).classList.add("up");
@@ -233,7 +232,6 @@ function PlayingBoard(props){
                         document.getElementById("mainInput").focus();
                     }, 1600);
                 }
-                
                 setLetterIndex(0);
             }
             else{
@@ -344,7 +342,7 @@ function PlayingBoard(props){
             <div className={"playing-board-container " + (props.darkModeState ? "dark" : "light")}>
                 {[...numArray, 5].map(firstIndex=>
                     [...numArray].map(secondIndex=>
-                        <LetterTile darkModeState={props.darkModeState} currAction={lastAction} workingIndex={nextIndex*5 + letterIndex} id={(firstIndex*5) + secondIndex} content={letters[firstIndex][secondIndex]} colour={colours[firstIndex][secondIndex]} informationState={props.informationState} />))} 
+                        <LetterTile gameWon={gameWon} darkModeState={props.darkModeState} currAction={lastAction} workingIndex={nextIndex*5 + letterIndex} id={(firstIndex*5) + secondIndex} content={letters[firstIndex][secondIndex]} colour={colours[firstIndex][secondIndex]} informationState={props.informationState} />))} 
 
             </div>
 

@@ -30,13 +30,13 @@ function LetterTile(props){
     const [fontColour, setFontColour] = React.useState("");
     const [borderClass, setBorderClass] = React.useState("");
     if(borderClass!=="transparent-border"){
-        if(props.id<props.workingIndex && Math.floor(props.id/5)===Math.floor((props.workingIndex-1)/5)){
-            if(borderClass!=="border-tile-light" && borderClass!=="border-tile-dark") setBorderClass("border-tile-dark");
+        if(!props.gameWon && Math.floor((props.id)/5)===Math.floor((props.workingIndex-1)/5)){
+            if(borderClass==="") setBorderClass("border-tile-dark");
             if(props.darkModeState && borderClass==="border-tile-light") setBorderClass("border-tile-dark");
             if(!props.darkModeState && borderClass==="border-tile-dark") setBorderClass("border-tile-light");
         }
         else{
-            if(borderClass!=="border-tile-pre-light" && borderClass!=="border-tile-pre-dark") setBorderClass("border-tile-pre-light");
+            if(borderClass==="") setBorderClass("border-tile-pre-light");
             if(props.darkModeState && borderClass==="border-tile-pre-light") setBorderClass("border-tile-pre-dark");
             if(!props.darkModeState && borderClass==="border-tile-pre-dark") setBorderClass("border-tile-pre-light");
         }

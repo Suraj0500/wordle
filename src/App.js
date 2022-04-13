@@ -4,6 +4,8 @@ import PlayingBoard from "./Components/PlayingBoard/PlayingBoard.js";
 import Header from "./Components/Header/Header.js";
 import Information from "./Components/Information/Information.js";
 import GameOver from "./Components/GameOver/GameOver.js";
+
+
 let storedInformationMode=localStorage.getItem("firstVisit");
 
 function App() {
