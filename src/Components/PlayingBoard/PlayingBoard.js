@@ -225,7 +225,7 @@ function PlayingBoard(props){
                     }
                     setNextIndex(nextIndex+1);
                 } 
-                if(window.innerWidth>1024){
+                if(document.getElementById("mainInput")){
                     document.getElementById("mainInput").type="hidden";
                     setTimeout(()=>{
                         document.getElementById("mainInput").type="text";
@@ -236,7 +236,7 @@ function PlayingBoard(props){
             }
             else{
                 let timeForShake=50;
-                if(window.innerWidth>1024){
+                if(document.getElementById("mainInput")){
                     document.getElementById("mainInput").type="hidden";
                     setTimeout(()=>{
                         document.getElementById("mainInput").type="text";
@@ -342,28 +342,28 @@ function PlayingBoard(props){
             <div className={"playing-board-container " + (props.darkModeState ? "dark" : "light")}>
                 {[...numArray, 5].map(firstIndex=>
                     [...numArray].map(secondIndex=>
-                        <LetterTile gameWon={gameWon} darkModeState={props.darkModeState} currAction={lastAction} workingIndex={nextIndex*5 + letterIndex} id={(firstIndex*5) + secondIndex} content={letters[firstIndex][secondIndex]} colour={colours[firstIndex][secondIndex]} informationState={props.informationState} />))} 
+                        <LetterTile key={(firstIndex*5) + secondIndex} gameWon={gameWon} darkModeState={props.darkModeState} currAction={lastAction} workingIndex={nextIndex*5 + letterIndex} id={(firstIndex*5) + secondIndex} content={letters[firstIndex][secondIndex]} colour={colours[firstIndex][secondIndex]} informationState={props.informationState} />))} 
 
             </div>
 
             <div className="keyboard-container">
                 <div className="keyboard-row-1">
-                    {keyboardLayout[0].map(letter=>
-                        <KeyboardTile darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                    {keyboardLayout[0].map((letter, index)=>
+                        <KeyboardTile key={index} darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                 </div>
 
 
                 <div className="keyboard-row-2">
-                    {keyboardLayout[1].map(letter=>
-                        <KeyboardTile darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                    {keyboardLayout[1].map((letter, index)=>
+                        <KeyboardTile key={index} darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                 </div>
                 
 
                 <div className="keyboard-row-3">
                     <KeyboardTileBig darkModeState={props.darkModeState} content="ENTER" gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("ENTER")}}/>
 
-                    {keyboardLayout[2].map(letter=>
-                        <KeyboardTile darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
+                    {keyboardLayout[2].map((letter, index)=>
+                        <KeyboardTile key={index} darkModeState={props.darkModeState} colours={keyboardColours} content={letter} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput(letter)}} currAction={lastAction}/>)}
                     
                     <KeyboardTileBig darkModeState={props.darkModeState} content={<FontAwesomeIcon icon={faDeleteLeft} size="xl" />} gameMessageState={isGameMessageVisible} onClick={()=>{handleInput("BACK")}}/>
                 </div>
@@ -371,10 +371,11 @@ function PlayingBoard(props){
             {props.informationState[0]===false ? (
                 <div>
                     <div className={"for-information invisible " + (props.darkModeState ? "dark" : "light")}></div>
-                    {window.innerWidth>1024 ? <input unselectable="on"
+                    {(window.innerWidth>1024 && window.innerHeight!==1024) ? <input unselectable="on"
                         onMouseDown={()=>{return false}}
-                        role="presentation" autoComplete="off" id="mainInput" type="text" autoFocus onBlur={({target})=>{target.focus()}} onKeyDown={(e)=>{
-                        handleInput(e.key.toUpperCase());
+                        role="presentation" autoComplete="off" id="mainInput" type="text" autoFocus onBlur={({target})=>{target.focus()}} 
+                        onKeyDown={(e)=>{
+                            handleInput(e.key.toUpperCase());
                         }} /> : <div></div>}
                 </div>
             ) : <div className={"for-information visible " + (props.darkModeState ? "dark" : "light")}></div>}
