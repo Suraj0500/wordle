@@ -108,25 +108,19 @@ function PlayingBoard(props){
         let base=nextIndex*5;
         let timeForNext=300;
         document.getElementById(base).classList.add("flip");
-        setTimeout(()=>{
-            document.getElementById(base).classList.remove("flip");
-            document.getElementById(base+1).classList.add("flip");
-            setTimeout(()=>{
-                document.getElementById(base+1).classList.remove("flip");
-                document.getElementById(base+2).classList.add("flip");
-                setTimeout(()=>{
-                    document.getElementById(base+2).classList.remove("flip");
-                    document.getElementById(base+3).classList.add("flip");
-                    setTimeout(()=>{
-                        document.getElementById(base+3).classList.remove("flip");
-                        document.getElementById(base+4).classList.add("flip");
-                        setTimeout(()=>{
-                            document.getElementById(base+4).classList.remove("flip");
-                        }, timeForNext);
-                    }, timeForNext);
-                }, timeForNext);
-            }, timeForNext);
+        let currentIndex = base;
+        let flipTimer = setInterval(() => {
+            if(currentIndex===base+4){
+                document.getElementById(currentIndex).classList.remove("flip");
+                clearInterval(flipTimer);
+            }
+            else{
+                document.getElementById(currentIndex).classList.remove("flip");
+                document.getElementById(currentIndex+1).classList.add("flip");
+                currentIndex++;
+            }
         }, timeForNext);
+        
         return count===5;
     }
     

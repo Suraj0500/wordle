@@ -11,19 +11,29 @@ function LetterTile(props){
             return;
         }
         if(props.content>="A" && props.content<="Z" && props.workingIndex-1===props.id && props.currAction==="letter"){
-            document.getElementById(props.id).classList.add("pop-tile-grow");
-            document.getElementById(props.id).classList.add(props.darkModeState ? "border-tile-dark" : "border-tile-light");
-            setTimeout(()=>{
-                document.getElementById(props.id).classList.remove("pop-tile-grow");
+            let timer = setInterval(() => {
+                if(document.getElementById(props.id).classList.contains("pop-tile-grow")){
+                    document.getElementById(props.id).classList.remove("pop-tile-grow");
+                    clearInterval(timer);
+                }
+                else{
+                    document.getElementById(props.id).classList.add("pop-tile-grow");
+                }
             }, 100);
+            document.getElementById(props.id).classList.add(props.darkModeState ? "border-tile-dark" : "border-tile-light");
         }
         else if(props.workingIndex===props.id && props.currAction==="Back"){
-            document.getElementById(props.id).classList.add("pop-tile-reduce");
+            let timer = setInterval(() => {
+                if(document.getElementById(props.id).classList.contains("pop-tile-reduce")){
+                    document.getElementById(props.id).classList.remove("pop-tile-reduce");
+                    clearInterval(timer);
+                }
+                else{
+                    document.getElementById(props.id).classList.add("pop-tile-reduce");
+                }
+            }, 100);
             document.getElementById(props.id).classList.remove("border-tile-light");
             document.getElementById(props.id).classList.remove("border-tile-dark");
-            setTimeout(()=>{
-                document.getElementById(props.id).classList.remove("pop-tile-reduce");
-            }, 100);
         }
     });
     const [tileColour, setTileColour] = React.useState("");
